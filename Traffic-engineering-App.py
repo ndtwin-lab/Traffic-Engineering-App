@@ -612,33 +612,6 @@ def ask_mode():
     return choice, te_interval
 
 
-def record_link_utilization(graph_data, filename, record_count):
-
-    extracted_edge_data = []
-    for e in graph_data["edges"]:
-        src_dpid = e["src_dpid"]
-        dst_dpid = e["dst_dpid"]
-        src_interface = e["src_interface"]
-        dst_interface = e["dst_interface"]
-        link_bandwidth_utilization_percent = e["link_bandwidth_utilization_percent"]
-
-        extracted_edge_data.append(
-            {
-                "src_dpid": src_dpid,
-                "dst_dpid": dst_dpid,
-                "src_interface": src_interface,
-                "dst_interface": dst_interface,
-                "link_bandwidth_utilization_percent": link_bandwidth_utilization_percent,
-            }
-        )
-
-    with open("./te_results/"+filename, "a") as f:
-        j = {str(record_count): extracted_edge_data}
-        f.write(json.dumps(j)+"\n")
-        
-        record_count=record_count+1
-        return record_count
-
 
 def main():
     mode, te_interval = ask_mode()
@@ -653,9 +626,7 @@ def main():
 
     # initial graph
     init = get_graph_data_api_call()
-    
-    # Record
-    record_count=record_link_utilization(init, filename, record_count)
+
     
     if not init:
         logger.warning("Initial get_graph_data_api_call() returned no data.")
@@ -702,9 +673,7 @@ def main():
         if now >= next_graph:
             try:
                 data = get_graph_data_api_call()
-                
-                # Record
-                record_count=record_link_utilization(data, filename, record_count)
+
                 
                 if data:  # keep old_graph if fetch failed
                     new_graph = construct_graph(data)
