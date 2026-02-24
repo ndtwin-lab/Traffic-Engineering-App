@@ -456,7 +456,7 @@ def detect_imbalance_and_migrate_multiple_flows(
                 link_bandwidth_bps = DG[src_sw][hop]["link_bandwidth_bps"]
 
                 logger.debug(
-                    f"link_bandwidth_utilization_percent in original congested link {data["link_bandwidth_utilization_percent"]}"
+                    f"link_bandwidth_utilization_percent in original congested link {data['link_bandwidth_utilization_percent']}"
                 )
                 logger.debug(
                     f"link_bandwidth_utilization_percent_in_candidate_next_hop {link_bandwidth_utilization_percent_in_candidate_next_hop}"
@@ -511,7 +511,7 @@ def detect_imbalance_and_migrate_multiple_flows(
                         f"left_link_bandwidth_bps(bf) {DG[src_sw][hop]["left_link_bandwidth_bps"]}"
                     )
                     logger.debug(
-                        f"link_bandwidth_utilization_percent(bf) {DG[src_sw][hop]["link_bandwidth_utilization_percent"]}"
+                        f"link_bandwidth_utilization_percent(bf) {DG[src_sw][hop]['link_bandwidth_utilization_percent']}"
                     )
                     # Subtract sending rate of migrated elephant flow from left link BW of idle link
                     DG[src_sw][hop]["left_link_bandwidth_bps"] = (
